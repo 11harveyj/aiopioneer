@@ -973,6 +973,11 @@ class PioneerAVR:
                     for command in response.command_queue:
                         self.queue_command(command)
 
+                # Override response.zone if it is null
+                # (https://github.com/crowbarz/ha-pioneer_async/issues/24)
+                if response.zone is None:
+                    updated_zones.add(str(Zones.Z1))
+
                 # Some specific overrides for the command queue, these are only
                 # requested if we are not doing a full update
                 if (
